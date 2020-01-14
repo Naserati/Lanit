@@ -4,9 +4,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = {"src/test/resources/"}, glue = {"ru.lanit"},
-        plugin = {
-                "ru.lanit.util.AllureReporter",
-        },
+        plugin = {"ru.lanit.util.AllureReporter",},
         tags = {"@lanit"}
 )
 

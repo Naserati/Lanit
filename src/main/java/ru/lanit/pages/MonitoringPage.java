@@ -1,10 +1,7 @@
 package ru.lanit.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 
 public class MonitoringPage extends BasePage {
 
@@ -14,6 +11,7 @@ public class MonitoringPage extends BasePage {
     @FindBy(xpath = "//select/option[text()='МФЦ/ТОСП']/parent::*")
     WebElement УровеньДетализации;
 
-    @FindBy(xpath = "//tbody//tr//td[3]")
-    WebElement Филиалы;
+    @FindBy(xpath = "//tbody//tr[1]//td[3]")
+    WebElement ФилиалыМФЦ;
+
 }

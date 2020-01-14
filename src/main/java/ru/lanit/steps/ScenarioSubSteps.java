@@ -1,15 +1,12 @@
 package ru.lanit.steps;
 
 import org.junit.Assert;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.reflections.Reflections;
 import ru.lanit.hooks.Hooks;
 import ru.lanit.pages.BasePage;
-import ru.lanit.pages.MonitoringPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.Set;
@@ -91,7 +88,16 @@ public class ScenarioSubSteps extends BaseSteps {
     }
 
     @Step
-    public void stepSelectElementFromComboBox(String option, String comboBox){
+    public void stepSelectElementFromComboBox(String option, String comboBox) {
         new Select(BasePage.currentPage.getFieldSafe(comboBox)).selectByVisibleText(option);
+    }
+
+    @Step
+    public void stepCheckTableCellText(String cell, String text) {
+        WebElement element = BasePage.currentPage.getFieldSafe(cell);
+        BasePage.currentPage.isElementPresent(element);
+        String currentText = element.getText();
+        if (!currentText.equals(text))
+            Assert.fail(String.format("В столбце %s не содержится искомая запись:\ncurrent: %s\nexpected: %s", cell, currentText, text));
     }
 }
