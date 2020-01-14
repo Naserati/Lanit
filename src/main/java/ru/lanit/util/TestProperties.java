@@ -1,4 +1,4 @@
-package ru.aplana.autotests.util;
+package ru.lanit.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,7 +11,7 @@ public class TestProperties {
 
     private TestProperties() {
         try {
-            properties.load(new FileInputStream(new File("./" + System.getProperty("enviroment") + ".properties")));
+            properties.load(new FileInputStream(new File("./enviroment.properties")));
         } catch (IOException e) {
             e.getStackTrace();
         }

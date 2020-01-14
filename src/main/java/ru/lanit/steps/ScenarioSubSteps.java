@@ -1,11 +1,15 @@
-package ru.aplana.autotests.steps;
+package ru.lanit.steps;
 
 import org.junit.Assert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.reflections.Reflections;
-import ru.aplana.autotests.hooks.Hooks;
-import ru.aplana.autotests.pages.BasePage;
+import ru.lanit.hooks.Hooks;
+import ru.lanit.pages.BasePage;
+import ru.lanit.pages.MonitoringPage;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.Set;
@@ -68,7 +72,7 @@ public class ScenarioSubSteps extends BaseSteps {
 
     @Step
     public void stepPageIsLoaded(String pageName) {
-        Reflections reflections = new Reflections("ru.aplana.autotests.pages");
+        Reflections reflections = new Reflections("ru.lanit.pages");
         Set<Class<? extends BasePage>> allPages = reflections.getSubTypesOf(BasePage.class);
 
 
@@ -83,5 +87,11 @@ public class ScenarioSubSteps extends BaseSteps {
                     throw new RuntimeException(e);
                 }
         }
+        BasePage.waitPageIsLoaded();
+    }
+
+    @Step
+    public void stepSelectElementFromComboBox(String option, String comboBox){
+        new Select(BasePage.currentPage.getFieldSafe(comboBox)).selectByVisibleText(option);
     }
 }

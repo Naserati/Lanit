@@ -1,4 +1,4 @@
-package ru.aplana.autotests.steps;
+package ru.lanit.steps;
 
 
 import java.util.HashMap;

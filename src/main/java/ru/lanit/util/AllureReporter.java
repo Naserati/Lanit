@@ -1,4 +1,4 @@
-package ru.aplana.autotests.util;
+package ru.lanit.util;
 
 import gherkin.formatter.model.Result;
 import org.openqa.selenium.OutputType;
@@ -6,7 +6,7 @@ import org.openqa.selenium.TakesScreenshot;
 import ru.yandex.qatools.allure.Allure;
 import ru.yandex.qatools.allure.events.MakeAttachmentEvent;
 
-import static ru.aplana.autotests.hooks.Hooks.getDriver;
+import static ru.lanit.hooks.Hooks.getDriver;
 
 
 public class AllureReporter extends ru.yandex.qatools.allure.cucumberjvm.AllureReporter {

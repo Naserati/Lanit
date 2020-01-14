@@ -1,16 +1,14 @@
-package ru.aplana.autotests.pages;
+package ru.lanit.pages;
 
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import ru.aplana.autotests.hooks.Hooks;
+import ru.lanit.hooks.Hooks;
+
 import java.util.Set;
 
 public abstract class BasePage {
@@ -24,6 +22,11 @@ public abstract class BasePage {
         if (!currentValue.equals(expectedValue)) {
             Assert.fail("Ошибка сравнения; текущее значение - " + currentValue + ", ожидаемое значение - " + expectedValue);
         }
+    }
+
+    public static void waitPageIsLoaded() {
+        new WebDriverWait(driver, 60).until(
+                (WebDriver d) -> ((JavascriptExecutor) d).executeScript("return document.readyState").equals("complete"));
     }
 
     public void waitFieldIsDisplayed(By locator) {
@@ -61,7 +64,7 @@ public abstract class BasePage {
 
     public boolean isElementPresent(WebElement element) {
         try {
-            wait = new WebDriverWait(driver, 10);
+            wait = new WebDriverWait(driver, 15);
             wait.until(ExpectedConditions.visibilityOf(element));
             return true;
         } catch (NoSuchElementException e) {
@@ -111,8 +114,7 @@ public abstract class BasePage {
             driver.findElement(locator).click();
             driver.findElement(locator).clear();
             driver.findElement(locator).sendKeys(value);
-        }
-        else Assert.fail("Невозможно ввести значение в поле");
+        } else Assert.fail("Невозможно ввести значение в поле");
     }
 
     public void sendKeys(WebElement element, String value) {
@@ -121,11 +123,10 @@ public abstract class BasePage {
             element.click();
             element.clear();
             element.sendKeys(value);
-        }
-        else Assert.fail("Невозможно ввести значение в поле: " + element);
+        } else Assert.fail("Невозможно ввести значение в поле: " + element);
     }
 
-    public String getText(WebElement element){
+    public String getText(WebElement element) {
         return element.getAttribute("value");
     }
 
@@ -139,7 +140,7 @@ public abstract class BasePage {
         };
     }
 
-    public WebElement getFieldSafe(String fieldName){
+    public WebElement getFieldSafe(String fieldName) {
 
         Object object = null;
         try {
@@ -147,18 +148,15 @@ public abstract class BasePage {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (object instanceof WebElement)
-        {
-            if (isElementPresent((WebElement)object)) {
+        if (object instanceof WebElement) {
+            if (isElementPresent((WebElement) object)) {
                 return (WebElement) object;
             } else {
 
                 Assert.fail("Поле не отображено: " + fieldName);
                 return null;// на самом деле досюда не дойдет
             }
-        }
-        else
-        {
+        } else {
 
             throw new RuntimeException();
         }
@@ -174,7 +172,6 @@ public abstract class BasePage {
         PageFactory.initElements(driver, this);
 
     }
-
 
 
 }

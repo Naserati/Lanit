@@ -1,4 +1,4 @@
-package ru.aplana.autotests.steps;
+package ru.lanit.steps;
 
 
 import cucumber.api.java.en.Then;
@@ -13,6 +13,10 @@ public class ScenarioSteps extends BaseSteps {
         subSteps.stepFieldIsClicked(fieldName);
     }
 
+    @When("^выбираем элемент \"(.+)\" из списка \"(.+)\"")
+    public void selectElementFromComboBox(String option, String comboBox){
+        subSteps.stepSelectElementFromComboBox(option, comboBox);
+    }
 
     @When("^наводим курсор на поле \"(.+)\"$")
     public void whenMoveCursorToField(String fieldName) {
@@ -42,6 +46,7 @@ public class ScenarioSteps extends BaseSteps {
     @Then("^загружена страница \"(.+)\"$")
     public void whenPageIsLoaded(String page) {
         subSteps.stepPageIsLoaded(page);
+
     }
 
 }
